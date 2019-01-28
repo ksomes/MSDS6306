@@ -1,0 +1,71 @@
+---
+title: "Live Session 3 Assignment"
+author: "Karen Somes"
+date: "1/28/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Question 1: GitHub Cloning
+mkdir DDS     
+cd DDS     
+git clone https://github.com/caesar0301/awesome-public-datasets      
+
+#Question 2:    
+```{r echo=FALSE}
+df<-read.csv("/Users/ksomes/Documents/DDS/awesome-public-datasets/Datasets/titanic.csv", header=TRUE)
+numMales<-sum(ifelse(df$Sex=="male",1,0))
+numFemales<-sum(ifelse(df$Sex=="female",1,0))
+barplot(c(numMales,numFemales), names.arg=c("Males", "Females"), main="Frequency of Titanic Passenger Sexes")
+meanAge<-apply(df[c(2,6,10)],2,mean, na.rm=TRUE)
+```     
+
+There were `r numMales` males on board and `r numFemales` on board the titanic. The survival rate and the mean age and fare of the passengers is `r meanAge` respectively.    
+
+#Question 3:    
+```{r}
+sleep<-read.csv("/Users/ksomes/Documents/sleep_data_01.csv", header=TRUE)
+hw3<- function(x) {
+  medAge<-median(x$Age, na.rm = TRUE)
+  minSleep<-min(x$Duration, na.rm=TRUE)
+  maxSleep<-max(x$Duration, na.rm=TRUE)
+  meanRSES<-mean(x$RSES, na.rm=TRUE)
+  sdRSES<-sd(x$RSES, na.rm=TRUE)
+  report<-data.frame("MedianAge"=medAge, "SelfEsteem"=meanRSES/5, "SE_SD"=sdRSES/5, "DurationRange"=maxSleep-minSleep)
+  return(round(report,2))
+}
+hw3(sleep) 
+```    
+
+#Question 4:    
+```{r}
+#install.packages("fivethirtyeight")
+library(fivethirtyeight)
+df<-college_recent_grads
+#https://fivethirtyeight.com/features/the-economic-guide-to-picking-a-college-major/
+dim(college_recent_grads)
+colnames(college_recent_grads)
+```    
+
+#Question 5:    
+```{r}
+colnames(college_recent_grads)
+ncol(college_recent_grads)
+library(dplyr)
+major_count<-college_recent_grads %>%
+  group_by(major_category) %>%
+  summarize(n())
+major_count<-data.frame(major_count)
+par(las=2)
+barplot(major_count[,2], names.arg = major_count[,1], main="Counts of College Major Types", xlab = "Majors", ylab="Counts", col="purple", horiz = TRUE)
+write.csv(major_count,"/Users/ksomes/Documents/college_recent_grads.csv")
+```    
+
+#Question 6:    
+https://github.com/ksomes/MSDS6306
+
+
+
