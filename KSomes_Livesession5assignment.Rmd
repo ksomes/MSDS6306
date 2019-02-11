@@ -1,0 +1,42 @@
+---
+title: "Homework 5"
+author: "Karen Somes"
+date: "2/10/2019"
+output: html_document
+---
+
+#Question 1: Data Munging    
+
+```{r}
+library(stringr)
+df<-read.table("/Users/ksomes/Downloads/HW5_2_2/yob2016.txt", sep=";", col.names = c("Name", "Gender", "Amount"))
+summary(df)
+str(df)
+rowNum<-grep("*yyy", df$Name)
+df[rowNum,]
+y2016<-df[-rowNum,]
+```    
+
+#Question 2: Data Merging    
+```{r}
+y2015<-read.table("/Users/ksomes/Downloads/HW5_2_2/yob2015.txt", sep=",", col.names = c("Name", "Gender", "Amount"))
+tail(y2015, 10)
+```    
+The last 10 names all occur 5 times.    
+
+```{r}
+final<-merge(y2015,y2016, by="Name")
+```    
+
+#Question 3: Data Summary    
+```{r}
+final$Total<-final$Amount.x+final$Amount.y
+sum(final$Total)
+final<-final[order(-final$Total),]
+output<-head(final, 10)
+output
+write.csv(output[,c("Name", "Total")], file="/Users/ksomes/Documents/DDS/top10.csv")
+```
+
+
+
