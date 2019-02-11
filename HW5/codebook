@@ -1,0 +1,8 @@
+df: the dataframe that holds data uploaded from yob2016.txt file.
+rowNum: the row number of the element with the typographical error.
+y2016: the cleaned and formatted version of df
+y2015: the uploaded dataframe from the yob2015.txt file.
+final: the two dataframes (y2016 and y2015) merged together
+output: the dataframe of the top 10 most popular girl names in 2015 and 2016
+
+all objects can be found in the KSomes_Livesession5assignment.Rmd file.
